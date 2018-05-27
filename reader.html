@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reader</title>
+	<style type="text/css">
+		body{
+			box-shadow: 8px 8px 8px grey;
+			margin: 2px;
+			padding: 6px;
+			width: 225px;
+			height: 400px;
+		}
+		.hide{
+			opacity: 0;
+		}
+		.switch-btn{
+			float: left;
+			border-radius: 20px;
+			width: 80px;
+			height: 35px;
+			background: lightgrey;
+			position: relative;
+			cursor: pointer;
+			box-shadow: inset 0px px 10px rgba(0,0,0,.3);
+		}
+		.switch-btn:before{
+			position: absolute;
+			height: 32px;
+			width: 36px;
+			border-radius: 50%;
+			background: linear-gradient(#FFF,#f2f2f2);
+			left: 2px;
+			top: 2px;
+			transition: all 150ms ease-out;
+			content: '';
+			box-shadow: 0px 5px 6px -4px rgba(0,0,0,.25);
+		}
+		input[type=checkbox]:checked + .switch-btn:before{
+			left: 42px;
+
+		}
+		input[type=checkbox]:checked + .switch-btn{
+			background: lightblue;
+
+		}
+		.textLabel{
+
+			font-size: 17px;
+			font-weight: bold;
+			font-family: cursive;
+		}
+
+	</style>
+	<script type="text/javascript" src="popup.js"></script>
+</head>
+<body>
+
+	<label class="switch">
+		<input type="checkbox" name="search" id="search" class="hide">
+		<div class="switch-btn">	
+		</div>
+		<span class="textLabel">Select Search</span>
+	</label>
+    <br/><br/>
+	<hr/>
+
+	<label class="switch">
+		<input type="checkbox" name="colorInversion" id="colorInversion" class="hide">
+		<div class="switch-btn">	
+		</div>
+		<span class="textLabel"> Dark Background</span>
+	</label>
+	<hr/>
+
+</body>
+</html>
