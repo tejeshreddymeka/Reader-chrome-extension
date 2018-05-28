@@ -7,6 +7,10 @@ function getColor(callback){
 	chrome.storage.sync.get("colorInversion",callback);
 }
 
+function getNotes(callback){
+	chrome.storage.sync.get("notes",callback);
+}
+
 getSearch(function(searchOption){
 	var search;
 	search = searchOption['searchOption'];   
@@ -95,11 +99,13 @@ getSearch(function(searchOption){
 });
 
 
-getColor(function(colorInversion){
+getColor(function(colorInversion)
+{
 	var colorOption;
 	colorOption = colorInversion['colorInversion'];	
 	//console.log(colorInversion);
-	if(colorOption===true){
+	if(colorOption===true)
+	{
 
 /*		let css = 'html {-webkit-filter: invert(100%);' +
 	    '-moz-filter: invert(100%);' +
@@ -111,20 +117,26 @@ getColor(function(colorInversion){
 	 	 let head = document.getElementsByTagName('head')[0];
 	  	let invertStyle = document.getElementById('invert');
 
-		  if (invertStyle) {
+		  if (invertStyle) 
+		  {
 		    head.removeChild(invertStyle);
-		  } else {
-	    let style = document.createElement('style');
+		  }
+		  else 
+		  {
+			    let style = document.createElement('style');
 
-	    style.type = 'text/css';
-	    style.id = 'invert';
-	    if (style.styleSheet){
-	      style.styleSheet.cssText = css;
-	    } else {
-	      style.appendChild(document.createTextNode(css));
-	    }
-	    head.appendChild(style);
-	  }
+			    style.type = 'text/css';
+			    style.id = 'invert';
+			    if (style.styleSheet)
+				{
+			      style.styleSheet.cssText = css;
+			    }
+				else
+					{
+			      style.appendChild(document.createTextNode(css));
+			    }
+			    head.appendChild(style);
+	  	}
 
 
 //		var elements = document.getElementsByTagName("*");
@@ -135,4 +147,91 @@ getColor(function(colorInversion){
 //		}
 	}
 
+});
+
+
+getNotes(function(notes){
+	var notesOption = notes['notes'];
+	console.log(notesOption);
+	if(notesOption===true)
+	{
+		var div = document.createElement("div");
+		div.id = "noteDiv";
+		var script = document.createElement("script");	
+		div.innerHTML = '    \
+						            <table>      \
+							    <tr><td colspan="4">Text to Save:</td></tr>			\
+							    <tr>			\
+							        <td colspan="4">				\
+							            <textarea id="inputTextToSave" cols="18" rows="2	"></textarea>	\
+							        </td>			\
+							    </tr>				\
+								<tr>			\
+							        <td colspan="4">				\
+											<button onclick="addSelectText()">Add selected text</button>   \
+							        </td>			\
+							    </tr>				\
+							</table>    <br/><br/>\
+							<table>   \
+							    <tr>					\
+							        <td colspan="4">Filename to Save As:</td>				\
+								</tr>  \
+								<tr> \
+							        <td colspan="4"><input id="inputFileNameToSaveAs" size="16"></input></td>			\
+								</tr> \
+								<tr> \
+							        <td colspan="4"><button onclick="saveTextAsFile()">Save Text to File</button></td>	\
+							    </tr>			\
+							</table>    <br/><br/>\
+							<table>   \
+							    <tr>				\
+							        <td colspan="4">Select a File to Load:</td>			\
+								</tr> \
+								<tr>   \
+							        <td colspan="4"><input type="file" id="fileToLoad"></td>			\
+								</tr>   \
+							        <td colspan="4"><button onclick="loadFileAsText()">Load Selected File</button><td>	<br/>		\
+							    </tr>			\
+							</table>			\
+							 ';
+		
+		script.innerHTML = 'function saveTextAsFile()			\
+							{			\
+							   var textToSave = document.getElementById("inputTextToSave").value;			\
+							   var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});				\
+							   var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);			\
+							   var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;			\
+							    var downloadLink = document.createElement("a");				\
+							    downloadLink.download = fileNameToSaveAs;			\
+							    downloadLink.innerHTML = "Download File";			\
+							    downloadLink.href = textToSaveAsURL;			\
+							    downloadLink.onclick = destroyClickedElement;				\
+							    downloadLink.style.display = "none";				\
+							    document.body.appendChild(downloadLink);			\
+							    downloadLink.click();				\
+							}			\
+							function destroyClickedElement(event)			\
+							{				\
+							    document.body.removeChild(event.target);		\
+							}				\
+								function loadFileAsText()				\
+					{			\
+							    var fileToLoad = document.getElementById("fileToLoad").files[0];				\
+							    var fileReader = new FileReader();				\
+							    fileReader.onload = function(fileLoadedEvent)    \
+							    {			\
+							        var textFromFileLoaded = fileLoadedEvent.target.result;			\
+							        document.getElementById("inputTextToSave").value = textFromFileLoaded;			\
+							    };				\
+							    fileReader.readAsText(fileToLoad, "UTF-8");			\
+							}   \
+						function 		addSelectText()						\
+						{												\
+							document.getElementById("inputTextToSave").value =  document.getElementById("inputTextToSave").value + "   [*]  "+ window.getSelection().toString();				\
+						}         \
+					';
+		document.getElementsByTagName('body')[0].appendChild(div);
+		document.getElementsByTagName('body')[0].appendChild(script);
+		//console.log(div);
+	}
 });
