@@ -26,6 +26,7 @@
 		  "css":["styles.css"]
    		}
  	],
+	"options_page":"options.html",
    "permissions":[
       "storage"
    ]
