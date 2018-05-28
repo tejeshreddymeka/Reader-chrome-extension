@@ -149,16 +149,55 @@ getColor(function(colorInversion)
 
 });
 
+var trianlgeFlag=1;
+var triangleDown=1;
 
 getNotes(function(notes){
 	var notesOption = notes['notes'];
-	console.log(notesOption);
+	//console.log(notesOption);
 	if(notesOption===true)
 	{
 		var div = document.createElement("div");
 		div.id = "noteDiv";
+
+		if(trianlgeFlag)
+		{
+			 let head = document.getElementsByTagName('head')[0];
+			let css="#triangle-down {   \
+					width: 0;    \
+					height: 0;    \
+					border-left: 25px solid transparent;   \
+					border-right: 25px solid transparent;   \
+					border-top: 30px solid rgb(0, 119, 204);      \
+				}   \
+				#triangle-up {   \
+					width: 0;    \
+					height: 0;    \
+					border-left: 25px solid transparent;    \
+					border-right: 25px solid transparent;    \
+					border-bottom: 30px solid rgb(0, 119, 204);    \
+				}   \
+				#updown{	\
+					cursor: pointer;	\
+				}	\
+			";
+			let style = document.createElement('style');	
+			style.type = 'text/css';
+		    if (style.styleSheet)
+			{
+		      style.styleSheet.cssText = css;
+		    }
+			else
+				{
+		      style.appendChild(document.createTextNode(css));
+		    }
+		    head.appendChild(style);
+		    trianlgeFlag=0;
+		}
+		
+	    
 		var script = document.createElement("script");	
-		div.innerHTML = '    \
+		div.innerHTML = ' <div id="updown"><div id="triangle-down"></div>   \
 						            <table>      \
 							    <tr><td colspan="4">Text to Save:</td></tr>			\
 							    <tr>			\
@@ -233,5 +272,34 @@ getNotes(function(notes){
 		document.getElementsByTagName('body')[0].appendChild(div);
 		document.getElementsByTagName('body')[0].appendChild(script);
 		//console.log(div);
+		var element = document.getElementById("updown")
+		console.log(element);
+		if(element)
+		{
+			element.addEventListener("click",function(e){
+			if(e.target!= document.getElementById("triangle-down") && e.target!=document.getElementById("triangle-up"))
+			{
+				return;
+			}
+			if(triangleDown)
+			{
+				var down = document.getElementById("triangle-down");
+				//console.log(down);
+				down.id = "triangle-up";
+				triangleDown=0;
+				document.getElementById("noteDiv").style.maxHeight = '70px';	
+			}
+			else
+			{
+				var up = document.getElementById("triangle-up");
+				//console.log(up)
+				up.id = "triangle-down";
+				triangleDown=1;
+				document.getElementById("noteDiv").style.maxHeight = '400px';	
+			}
+			});	
+		}	
 	}
 });
+
+
