@@ -8,7 +8,7 @@
 			margin: 2px;
 			padding: 6px;
 			width: 225px;
-			height: 400px;
+			height: 270px;
 		}
 		.hide{
 			opacity: 0;
@@ -49,7 +49,11 @@
 			font-weight: bold;
 			font-family: cursive;
 		}
-
+		.icon{
+			height: 60px;
+			width: 60px;
+			border-radius: 10px;
+		}
 	</style>
 	<script type="text/javascript" src="popup.js"></script>
 </head>
@@ -71,6 +75,22 @@
 		<span class="textLabel"> Dark Background</span>
 	</label>
 	<hr/>
+	
+	<label class="switch">
+		<input type="checkbox" name="notes" id="notes" class="hide">
+		<div class="switch-btn">	
+		</div>
+		<span class="textLabel"> Add To Notes</span>
+	</label>
+	<br/><br/>
+	<hr/>
+	<br/><br/>
+	<label>
+		<a href="/options.html" target="_blank" alt="optionsPage"><img class="icon" src="/settingsIcon.jpg">  </a>
+	</label>
+	<label>
+		<a href="/options.html#donate" target="_blank" alt="donate">  <img class="icon" src="/donate-time.png"></a>
+	</label>
 
 </body>
 </html>
