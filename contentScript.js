@@ -58,7 +58,7 @@ getSearch(function(searchOption){
 						continue;
 					}
 				
-					if(e>5)break;
+					
 					totalLen+=myObj[2][e].length;
 					req = req +"<li>"+ myObj[2][e] + "</li>";
 					
@@ -84,6 +84,7 @@ getSearch(function(searchOption){
 		var y = rect.y;
 		y = y+30;
 		if(y>600)y-=440;
+		if(x>770)x-=240;
 		//console.log(x);
 		//console.log(y);
 		var div = document.createElement("div");
@@ -112,7 +113,7 @@ getColor(function(colorInversion)
 	    '-o-filter: invert(100%);' +
 	    '-ms-filter: invert(100%); }';
 */
-		let css = '*,*:before,*:after{background-color:#0E0C0C;color:white;}';
+		let css = 'html,body,nav,*,*:before,*:after{background-color:#0E0C0C;color:white;}';
 
 	 	 let head = document.getElementsByTagName('head')[0];
 	  	let invertStyle = document.getElementById('invert');
